@@ -1,5 +1,7 @@
 package pl.edu.uwr.i331319.po.propcalc.formula;
 
+import java.util.HashSet;
+
 public class Variable extends Formula {
 	private final String name;
 	
@@ -28,6 +30,15 @@ public class Variable extends Formula {
 	
 	public String toString() {
 		return name;
+	}
+	
+	@Override
+	public HashSet<Clause> toClausalForm() {
+		HashSet<Literal> aux = new HashSet<Literal>();
+		aux.add(new Literal(name, true));
+		HashSet<Clause> res = new HashSet<Clause>();
+		res.add(new Clause(aux));
+		return res;
 	}
 
 }

@@ -1,5 +1,7 @@
 package pl.edu.uwr.i331319.po.propcalc.formula;
 
+import java.util.HashSet;
+
 public class Negation extends Formula {
 	private Formula child;
 	private static final String name = "not";
@@ -38,6 +40,18 @@ public class Negation extends Formula {
 		if(isStrongerThan(child)) s = "(" + child.toString() + ")";
 		else s = child.toString();
 		return name + " " + s;
+	}
+	
+	@Override
+	public HashSet<Clause> toClausalForm() {
+		if (!(child instanceof Variable))
+			return toCNF().toClausalForm();
+		
+		HashSet<Literal> aux = new HashSet<Literal>();
+		aux.add(new Literal(child.getName(), false));
+		HashSet<Clause> res = new HashSet<Clause>();
+		res.add(new Clause(aux));
+		return res;
 	}
 
 }

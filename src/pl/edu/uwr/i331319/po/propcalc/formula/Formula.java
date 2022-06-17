@@ -1,5 +1,6 @@
 package pl.edu.uwr.i331319.po.propcalc.formula;
 
+import java.util.HashSet;
 import java.util.Hashtable;
 
 public abstract class Formula {
@@ -15,8 +16,8 @@ public abstract class Formula {
 	public abstract Formula toNNF();	
 	
 	/* Teoretycznie funkcja pomocnicza dla toNNF(),
-	 * sprowadzaj¹ca do zaprzeczonego NNF-u.
-	 * Mo¿e siê okazaæ bardziej pomocna ni¿ toNNF()! */
+	 * sprowadzajï¿½ca do zaprzeczonego NNF-u.
+	 * Moï¿½e siï¿½ okazaï¿½ bardziej pomocna niï¿½ toNNF()! */
 	public abstract Formula toNegNNF();	
 	
 	/* Sprowadzenie do koniunkcyjnej postaci normalnej. */
@@ -25,6 +26,8 @@ public abstract class Formula {
 	public abstract String getName();
 	
 	public abstract String toString();
+	
+	public abstract HashSet<Clause> toClausalForm();
 	
 	public boolean isStrongerThan(Formula phi) {
 		if (priorities.containsKey(phi.getName()))

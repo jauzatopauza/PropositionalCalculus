@@ -1,5 +1,7 @@
 package pl.edu.uwr.i331319.po.propcalc.formula;
 
+import java.util.HashSet;
+
 public class Conjunction extends Formula {
 	private Formula left;
 	private Formula right;
@@ -44,6 +46,16 @@ public class Conjunction extends Formula {
 		if (isStrongerThan(right)) r = "(" + right.toString() + ")";
 		else r = right.toString();
 		return l + " " + name + " " + r;
+	}
+
+	@Override
+	public HashSet<Clause> toClausalForm() {
+		HashSet<Clause> res = new HashSet<Clause>();
+		HashSet<Clause> L = left.toClausalForm();
+		HashSet<Clause> R = right.toClausalForm();
+		res.addAll(L);
+		res.addAll(R);
+		return res;
 	}
 
 }

@@ -1,5 +1,7 @@
 package pl.edu.uwr.i331319.po.propcalc.formula;
 
+import java.util.HashSet;
+
 public class Disjunction extends Formula {
 	private Formula left;
 	private Formula right;
@@ -31,7 +33,7 @@ public class Disjunction extends Formula {
 		return new Conjunction(left.toNegNNF(), right.toNegNNF());
 	}
 
-	/* Wygl�da w chuj radziecko, pewnie si� zap�tla na amen. */
+	/* Wygląda w chuj radziecko, pewnie się zapętla na amen. */
 	@Override
 	public Formula toCNF() {
 		Formula L = left.toCNF();
@@ -56,6 +58,23 @@ public class Disjunction extends Formula {
 		if (isStrongerThan(right)) r = "(" + right.toString() + ")";
 		else r = right.toString();
 		return l + " " + name + " " + r;
+	}
+	
+	@Override
+	public HashSet<Clause> toClausalForm() {
+		HashSet<Clause> L = left.toClausalForm();
+		HashSet<Clause> R = right.toClausalForm();
+		if (L.size() > 1 || R.size() > 1) //   Jeżeli postać klauzalna któregoś dysjunktu jest sussy,
+			return toCNF().toClausalForm(); // to znaczy, że nie jesteśmy jeszcze w CNF-ie!
+		
+		Clause cl = L.iterator().next();
+		Clause cr = R.iterator().next();
+		HashSet<Clause> res = new HashSet<Clause>();
+		HashSet<Literal> aux = new HashSet<Literal>();
+		aux.addAll(cl.literals);
+		aux.addAll(cr.literals);
+		res.add(new Clause(aux));
+		return res;
 	}
 
 }
