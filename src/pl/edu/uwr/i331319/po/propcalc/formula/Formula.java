@@ -1,10 +1,10 @@
 package pl.edu.uwr.i331319.po.propcalc.formula;
 
 import java.util.HashSet;
-import java.util.Hashtable;
+import java.util.HashMap;
 
 public abstract class Formula {
-	public static final Hashtable<String, Integer> priorities = new Hashtable<String, Integer>();
+	public static final HashMap<String, Integer> priorities = new HashMap<String, Integer>();
 	
 	static {
 		priorities.put("or", 1);
@@ -15,9 +15,8 @@ public abstract class Formula {
 	/* Sprowadzenie do negacyjnej postaci normalnej. */
 	public abstract Formula toNNF();	
 	
-	/* Teoretycznie funkcja pomocnicza dla toNNF(),
-	 * sprowadzaj�ca do zaprzeczonego NNF-u.
-	 * Mo�e si� okaza� bardziej pomocna ni� toNNF()! */
+	/* Sprowadzenie do zaprzeczonej negacyjnej postaci normalnej. 
+	 * Wzajemna rekursja z toNNF(). */
 	public abstract Formula toNegNNF();	
 	
 	/* Sprowadzenie do koniunkcyjnej postaci normalnej. */
@@ -27,6 +26,8 @@ public abstract class Formula {
 	
 	public abstract String toString();
 	
+	/* Sprowadzenie do postaci klauzalnej, czyli zbioru klauzul,
+	 * które to z kolei reprezentują zbiory literałów. */
 	public abstract HashSet<Clause> toClausalForm();
 	
 	public boolean isStrongerThan(Formula phi) {

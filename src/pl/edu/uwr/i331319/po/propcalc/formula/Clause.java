@@ -15,8 +15,12 @@ public class Clause {
 	}
 	
 	public boolean isTautology() {
-		//TODO: Dla każdego literału sprawdzić, czy zbiór zawiera literał komplementarny.
-		return false;
+		boolean res = false;
+		for (Literal l : literals) 
+			if (literals.contains(new Literal(l.getName(), !l.getPolarity())))
+				res = true;
+		
+		return res;
 	}
 	
 	@Override

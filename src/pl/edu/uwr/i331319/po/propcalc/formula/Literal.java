@@ -17,6 +17,10 @@ public class Literal {
 		return polarity;
 	}
 	
+	public boolean isComplementaryTo(Literal l) {
+		return l.name.equals(name) && (l.polarity ^ polarity);
+	}
+	
 	@Override
 	public int hashCode() {
 		int res = 17;
