@@ -3,9 +3,16 @@ package pl.edu.uwr.i331319.po.propcalc.formula;
 import java.util.HashSet;
 
 public class Clause {
+	public Clause left;
+	public Clause right;
 	public HashSet<Literal> literals;
 	
-	/* Wkrótce rozszerzymy klauzulę o pamiętanie swoich rodziców (ale może ich nie być!). */
+	public Clause(HashSet<Literal> literals, Clause leftParent, Clause rightParent) {
+		this.literals = literals;
+		left = leftParent;
+		right = rightParent;
+	}
+	
 	public Clause(HashSet<Literal> literals) {
 		this.literals = literals;
 	}
@@ -38,6 +45,8 @@ public class Clause {
 	
 	@Override
 	public String toString() {
+		if (left != null && right != null) 
+			return literals.toString() + "\t res " + left.literals.toString() + ", " + right.literals.toString();
 		return literals.toString();
 	}
 }

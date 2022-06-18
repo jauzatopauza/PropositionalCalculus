@@ -1,41 +1,49 @@
 package pl.edu.uwr.i331319.po.propcalc.tests;
 
 import pl.edu.uwr.i331319.po.propcalc.formula.*;
+import pl.edu.uwr.i331319.po.propcalc.io.CommandLineIO;
 import pl.edu.uwr.i331319.po.propcalc.resolution.Resolution;
 
 public class ResolutionTest {
 
 	public static void main(String[] args) {
+		Formula[] formulae = new Formula[5];
+		
 		/* Prawo kontrapozycji: not (not p or q) or (not not q or not p) */
-		Formula contraposition = new Disjunction(new Negation(new Disjunction(new Negation(new Variable("p")),
+		formulae[0] = new Disjunction(new Negation(new Disjunction(new Negation(new Variable("p")),
 																			new Variable("q"))),
 												new Disjunction(new Negation(new Negation(new Variable("q"))),
 																new Negation(new Variable("p"))));
-		System.out.println(Resolution.checkTautology(contraposition));
-		
 		/* Nietautologia: not (not p or q) or (not q or p) */
-		Formula satisfiable = new Disjunction(new Negation(new Disjunction(new Negation(new Variable("p")),
+		formulae[1] = new Disjunction(new Negation(new Disjunction(new Negation(new Variable("p")),
 																			new Variable("q"))),
 												new Disjunction(new Negation(new Variable("q")),
 																new Variable("p")));
-		System.out.println(Resolution.checkTautology(satisfiable));
 		
 		/* Prawo wyłączonego środka: p or not p */
-		Formula tertiumNonDatur = new Disjunction(new Variable("p"), new Negation(new Variable("p")));
-		System.out.println(Resolution.checkTautology(tertiumNonDatur));
+		formulae[2] = new Disjunction(new Variable("p"), new Negation(new Variable("p")));
 		
 		/* Prawo niesprzeczności: not (p and not p) */
-		Formula noncontradiction = new Negation(new Conjunction(new Variable("p"), new Negation(new Variable("p"))));
-		System.out.println(Resolution.checkTautology(noncontradiction));
+		formulae[3] = new Negation(new Conjunction(new Variable("p"), new Negation(new Variable("p"))));
 		
 		/* Nietautologia: p and q and r or not p and not q and not r */
-		Formula satisfiable2 = new Disjunction(new Conjunction(new Variable("p"), 
+		formulae[4] = new Disjunction(new Conjunction(new Variable("p"), 
 																new Conjunction(new Variable("q"), 
 																				new Variable("r"))),
 												new Conjunction(new Negation(new Variable("p")),
 														new Conjunction(new Negation(new Variable("q")),
 																new Negation(new Variable("r")))));
-		System.out.println(Resolution.checkTautology(satisfiable2));
+		for (Formula phi : formulae) {
+			System.out.println(phi.toString());
+			Clause r = Resolution.checkTautology(phi);
+			boolean ans = r.isEmpty();
+			System.out.println("tautology? " + ans);
+			if (ans) {
+				System.out.println("Proof: ");
+				CommandLineIO.printClauseTree(r);
+			}
+			System.out.println();
+		}
 	}
 
 }

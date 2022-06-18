@@ -6,11 +6,25 @@ import java.util.LinkedList;
 import pl.edu.uwr.i331319.po.propcalc.formula.*;
 
 public class Resolution {
-	/* Docelowo ma zwracać uzyskaną klauzulę pustą w razie odpowiedzi
-	 * pozytywnej lub dowolną klauzulę niepustą w razie odpowiedzi
-	 * negatywnej. */
-	public static boolean checkTautology(Formula phi) {
-		LinkedList<Clause> usableClauses = new LinkedList<Clause>(phi.toNegNNF().toCNF().toClausalForm());
+	
+	public static boolean isTautology(Formula phi) {
+		return checkTautology(phi).isEmpty();
+	}
+	
+	public static boolean isContradiction(Formula phi) {
+		return checkContradiction(phi).isEmpty();
+	}
+	
+	public static Clause checkTautology(Formula phi) {
+		return applyResolution(phi.toNegNNF());
+	}
+	
+	public static Clause checkContradiction(Formula phi) {
+		return applyResolution(phi.toNNF());
+	}
+	
+	private static Clause applyResolution(Formula phi) {
+		LinkedList<Clause> usableClauses = new LinkedList<Clause>(phi.toCNF().toClausalForm());
 		LinkedList<Clause> usedClauses = new LinkedList<Clause>();
 
 		while(!usableClauses.isEmpty()) {
@@ -30,7 +44,7 @@ public class Resolution {
 					for (Literal l2 : usedClause.literals) {
 						if (l1.isComplementaryTo(l2)) {
 							Clause resolvent = resolve(c, usedClause, l1, l2);
-							if (resolvent.isEmpty()) return true;
+							if (resolvent.isEmpty()) return resolvent;
 							if (!resolvent.isTautology())
 								usableClauses.add(resolvent);
 						}
@@ -40,7 +54,7 @@ public class Resolution {
 			usedClauses.add(c);
 		}
 		
-		return false;
+		return usedClauses.getFirst();
 	}
 	
 	private static Clause resolve(Clause c1, Clause c2, Literal l1, Literal l2) {
@@ -49,6 +63,6 @@ public class Resolution {
 		resSet.addAll(c2.literals);
 		resSet.remove(l1);
 		resSet.remove(l2);
-		return new Clause(resSet);
+		return new Clause(resSet, c1, c2);
 	}
 }
