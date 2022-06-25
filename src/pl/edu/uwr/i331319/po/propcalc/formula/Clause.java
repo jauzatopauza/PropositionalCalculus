@@ -6,11 +6,13 @@ public class Clause {
 	public Clause left;
 	public Clause right;
 	public HashSet<Literal> literals;
+	public boolean seen;
 	
 	public Clause(HashSet<Literal> literals, Clause leftParent, Clause rightParent) {
 		this.literals = literals;
 		left = leftParent;
 		right = rightParent;
+		seen = false;
 	}
 	
 	public Clause(HashSet<Literal> literals) {

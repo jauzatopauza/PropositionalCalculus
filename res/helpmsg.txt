@@ -1,0 +1,13 @@
+Formulas should be entered in infix notation, using only the connectives {not, and, or} and parentheses.
+Everything else is treated as a variable. Once the formula has been entered, you can process it
+with the following commands.
+
+taut?      -- checks whether the formula is a tautology. If so, prints a proof by resolution.
+contr?     -- checks whether the formula is a contradiction. If so, prints a proof by resolution.
+nnf        -- prints an equivalent formula in Negation Normal Form.
+cnf        -- prints an equivalent formula in Conjunction Normal form.
+clauses    -- prints a set of clauses that represents the formula. Helpful when showing a contradiction.
+negclauses -- prints a set of clauses that represents the negated formula. Helpful when proving a tautology. 
+new        -- signals the program to read a new formula.
+help       -- prints the help message.
+q          -- quits program.

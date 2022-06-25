@@ -35,4 +35,10 @@ public abstract class Formula {
 			return priorities.get(this.getName()) > priorities.get(phi.getName());
 		return false;
 	}
+	
+	public static boolean isStrongerThan(String op1, String op2) {
+		if (priorities.containsKey(op1) && priorities.containsKey(op2))
+			return priorities.get(op1) > priorities.get(op2);
+		return false;
+	}
 }

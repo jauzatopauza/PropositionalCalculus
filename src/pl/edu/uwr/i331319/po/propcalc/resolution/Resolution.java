@@ -36,7 +36,7 @@ public class Resolution {
 					subsumed = true;
 					break;
 				}
-			} // kuchnia włoska, może da się to ładniej przerobić
+			} 
 			if (subsumed) continue;
 			
 			for (Clause usedClause : usedClauses) {
