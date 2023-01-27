@@ -2,10 +2,15 @@ package pl.edu.uwr.i331319.po.propcalc.formula;
 
 import java.util.HashSet;
 
+/** Reprezentuje negację formuły. */
 public class Negation extends Formula {
 	private Formula child;
 	private static final String name = "not";
 	
+	/** 
+	 * Tworzy nową negację.
+	 * @param arg Negowana formuła
+	 * */
 	public Negation(Formula arg) {
 		this.child = arg;
 	}
@@ -14,6 +19,7 @@ public class Negation extends Formula {
 		return name;
 	}
 	
+	/** Zwraca negowaną formułę. */
 	public Formula getChild() {
 		return child;
 	}

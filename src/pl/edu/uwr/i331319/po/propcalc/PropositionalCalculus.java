@@ -8,8 +8,20 @@ import pl.edu.uwr.i331319.po.propcalc.io.CommandLineIO;
 import pl.edu.uwr.i331319.po.propcalc.io.Parser;
 import pl.edu.uwr.i331319.po.propcalc.resolution.Resolution;
 
+/**
+ * Klasa główna. Program umożliwia sprawdzenie, czy formuła jest prawdziwa lub sprzeczna,
+ * wypisuje dowód rezolucyjny. Dodatkowo może zamienić formułę na NNF i CNF, a także
+ * przedstawić ją w postaci zbioru klauzul.
+ *  */
 public class PropositionalCalculus {
 
+	/**
+	 * Punkt wejścia do programu, zawiera główną pętlę wczytującą formuły i polecenia.
+	 * Program ma dwa stany: oczekujący formuły i oczekujący poleceń. Najpierw oczekuje
+	 * formuły. Jeśli ją dostanie, oczekuje polecenia. Można „zresetować” wprowadzenie
+	 * formuły poleceniem <code>new</code>. Polecenia <code>help</code> i <code>q</code>
+	 * można wydawać niezależnie od stanu.
+	 * */
 	public static void main(String[] args) throws IOException {
 		CommandLineIO clio = new CommandLineIO();
 		CommandLineIO.printWelcomeMessage();

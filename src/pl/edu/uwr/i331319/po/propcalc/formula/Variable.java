@@ -2,9 +2,14 @@ package pl.edu.uwr.i331319.po.propcalc.formula;
 
 import java.util.HashSet;
 
+/** Reprezentuje zmienną zdaniową. */
 public class Variable extends Formula {
 	private final String name;
 	
+	/** 
+	 * Tworzy nową zmienną zdaniową o podanej nazwie.
+	 * @param name Nazwa zmiennej
+	 * */
 	public Variable(String name) {
 		this.name = name;
 	}

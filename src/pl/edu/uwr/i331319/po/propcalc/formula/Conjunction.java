@@ -2,11 +2,19 @@ package pl.edu.uwr.i331319.po.propcalc.formula;
 
 import java.util.HashSet;
 
+/** 
+ * Reprezentuje koniunkcję formuł.
+ * */
 public class Conjunction extends Formula {
 	private Formula left;
 	private Formula right;
 	private static final String name = "and";
 	
+	/** 
+	 * Tworzy nową koniunkcję.
+	 * @param left Lewa podformuła
+	 * @param right Prawa podformuła
+	 * */
 	public Conjunction(Formula left, Formula right) {
 		this.left = left;
 		this.right = right;
@@ -16,10 +24,16 @@ public class Conjunction extends Formula {
 		return name;
 	}
 	
+	/** 
+	 * Zwraca lewą podformułę.
+	 * */
 	public Formula getLeft() {
 		return left;
 	}
 	
+	/** 
+	 * Zwraca prawą podformułę.
+	 * */
 	public Formula getRight() {
 		return right;
 	}

@@ -2,23 +2,38 @@ package pl.edu.uwr.i331319.po.propcalc.formula;
 
 import java.util.HashSet;
 
+/** 
+ * Reprezentuje dysjunkcję formuł.
+ * */
 public class Disjunction extends Formula {
 	private Formula left;
 	private Formula right;
 	private static final String name = "or";
 	
+	/** 
+	 * Tworzy nową dysjunkcję.
+	 * @param left Lewa podformuła
+	 * @param right Prawa podformuła
+	 * */
 	public Disjunction(Formula left, Formula right) {
 		this.left = left;
 		this.right = right;
 	}
+	
 	public String getName() {
 		return name;
 	}
 	
+	/** 
+	 * Zwraca lewą podformułę.
+	 * */
 	public Formula getLeft() {
 		return left;
 	}
 	
+	/** 
+	 * Zwraca prawą podformułę.
+	 * */
 	public Formula getRight() {
 		return right;
 	}
@@ -33,7 +48,6 @@ public class Disjunction extends Formula {
 		return new Conjunction(left.toNegNNF(), right.toNegNNF());
 	}
 
-	/* Wygląda w chuj radziecko, pewnie się zapętla na amen. */
 	@Override
 	public Formula toCNF() {
 		Formula L = left.toCNF();
@@ -64,8 +78,8 @@ public class Disjunction extends Formula {
 	public HashSet<Clause> toClausalForm() {
 		HashSet<Clause> L = left.toClausalForm();
 		HashSet<Clause> R = right.toClausalForm();
-		if (L.size() > 1 || R.size() > 1) //   Jeżeli postać klauzalna któregoś dysjunktu jest sussy,
-			return toCNF().toClausalForm(); // to znaczy, że nie jesteśmy jeszcze w CNF-ie!
+		if (L.size() > 1 || R.size() > 1) 
+			return toCNF().toClausalForm(); 
 		
 		Clause cl = L.iterator().next();
 		Clause cr = R.iterator().next();

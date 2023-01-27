@@ -4,10 +4,18 @@ import java.util.LinkedList;
 
 import pl.edu.uwr.i331319.po.propcalc.formula.*;
 
-
+/** 
+ * Odpowiada za parsowanie łańcuchów znaków reprezentujących formuły logiczne.
+ * */
 public class Parser {
-	/* Do parsowania u�yjemy algorytmu stacji rozrz�dowej. Niech �yje Bogus�aw Lanuszny!
-	 * Je�eli zwr�cono null, to mamy do czynienia z b��dem sk�adniowym (cho� niekoniecznie w drug� stron�). */
+	/** 
+	 * Parsuje listę tokenów, wykorzystując algorytm stacji rozrządowej.
+	 * Zwrócenie wartości <code>null</code> oznacza błąd składniowy.
+	 * Niektóre błędne formuły parsowane są bez zgłoszenia błędu,
+	 * wynik może być zaskakujący.
+	 * @param toks Lista tokenów
+	 * @return Abstrakcyjne drzewo rozbioru
+	 * */
 	public static Formula parse(LinkedList<String> toks) {
 		LinkedList<Formula> operands = new LinkedList<Formula>();
 		LinkedList<String> operators = new LinkedList<String>();
@@ -22,10 +30,10 @@ public class Parser {
 					top = operators.pop();
 					if (top.equals("("))
 						found = true;
-					else if (!pushNode(operands, top)) // znalaz� jeden prosty trik, by zmodyfikowa� stan programu!
+					else if (!pushNode(operands, top)) // znalazł jeden prosty trik, by zmodyfikowa� stan programu!
 						return null;
 				}
-				if (!found) return null; // niedopasowany nawias zamykaj�cy
+				if (!found) return null; // niedopasowany nawias zamykający
 			} else if (Formula.priorities.containsKey(token)) {
 				while (!operators.isEmpty() 
 						&& !operators.peek().equals("(") 
@@ -39,13 +47,13 @@ public class Parser {
 		
 		while (!operators.isEmpty()) {
 			String op = operators.pop();
-			if (op.equals("(")) return null; // niedopasowany nawias otwieraj�cy
+			if (op.equals("(")) return null; // niedopasowany nawias otwierający
 			else if (!pushNode(operands, op))
 				return null;
 		}
 		if (operands.size() == 1)
 			return operands.pop();
-		else return null; // nie ma operator�w
+		else return null; // nie ma operatorów
 	}
 	
 	
@@ -65,6 +73,11 @@ public class Parser {
 		}
 	}
 	
+	/** 
+	 * Wydziela tokeny z łańcucha znaków.
+	 * @param s Łańcuch znaków
+	 * @return Lista tokenów
+	 * */
 	public static LinkedList<String> tokenize(String s) {
 		LinkedList<String> res = new LinkedList<String>();
 		int wordBeginning = 0;
