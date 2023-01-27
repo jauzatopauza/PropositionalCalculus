@@ -19,7 +19,7 @@ public class ClausalFormTest {
 		HashSet<Clause> phiClauses = phi.toCNF().toClausalForm();
 		
 		/* CNF: (p or r) and (p or s) and (q or r) and (q or s) and (r or r) and (r or s) */
-		/* PostaÄ‡ klauzalna: [[r], [p, r], [p, s], [q, r], [q, s], [r, s]] */
+		/* Postaæ klauzalna: [[r], [p, r], [p, s], [q, r], [q, s], [r, s]] */
 		System.out.println(phiClauses);
 		
 		/* not (p or q) or r */
@@ -31,7 +31,7 @@ public class ClausalFormTest {
 		HashSet<Clause> psiClauses = psi.toCNF().toClausalForm();
 		
 		/* CNF: (not p or r) and (not q or r) */
-		/* PostaÄ‡ klauzalna: [[r, not p], [r, not q]] */
+		/* Postaæ klauzalna: [[r, not p], [r, not q]] */
 		System.out.println(psiClauses);
 		System.out.println(psi.toClausalForm());
 	}
